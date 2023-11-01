@@ -1,0 +1,11 @@
+.AppGeneralHeader {
+  display: flex;
+  padding: 0px 28px 0px 0px;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
