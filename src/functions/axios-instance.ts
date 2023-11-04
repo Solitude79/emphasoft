@@ -14,7 +14,7 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem(accessTokenName);
     if (accessToken) {
-      config.headers["Authorization"] = accessToken;
+      config.headers["Authorization"] = `token ${accessToken}`;
     }
     return config;
   },
@@ -25,7 +25,7 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error?.response?.status === 401) {
-      userLogout();
+      // userLogout();
     } else if (error?.response?.status === 0) {
       console.error("Ошибка CORS:", error.message);
     }
