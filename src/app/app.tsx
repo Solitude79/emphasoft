@@ -14,6 +14,7 @@ export const DEFAULT_USER: IUser = {
   last_name: "",
   password: "",
   is_active: false,
+  id:0
 };
 export const PASSWORD_PATTERN = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
 
