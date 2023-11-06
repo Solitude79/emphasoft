@@ -1,7 +1,7 @@
 import * as types from "./types";
 import { IUserSortID, IUser } from "./interfaces";
 
-export const getUsers = (users: IUser) => ({
+export const addUsers = (users: IUser) => ({
   type: types.ADD_USERS,
   payload: users,
 });
@@ -21,7 +21,7 @@ export const patchUser = (user: IUser) => ({
   payload: user,
 });
 
-export const deleteUSer = (user: IUser) => ({
+export const deleteUser = (user: IUser) => ({
   type: types.DELETE_USER,
   payload: user.id,
 });
@@ -33,4 +33,8 @@ export const setFilterUsernames = (usernames: string[]) => ({
 export const setSortId = (sort: IUserSortID) => ({
   type: "SET_SORT_ID",
   payload: sort,
+});
+
+export const clearUsersState = () => ({
+  type: types.CLEAR_USERS_STATE,
 });

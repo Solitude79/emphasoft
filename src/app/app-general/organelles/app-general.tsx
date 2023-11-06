@@ -6,7 +6,9 @@ import '../styles/app-general.css'
 export const AppGeneral = () => {
     return (
         <div className="AppGeneral">
-            <AppGeneralHeader/>
+            <div className="AppGeneral__AppGeneralHeader">
+                <AppGeneralHeader/>
+            </div>
             <div className="AppGeneral__Outlet">
               <Outlet/>
             </div>

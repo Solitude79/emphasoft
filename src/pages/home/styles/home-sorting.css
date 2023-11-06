@@ -1,0 +1,19 @@
+.HomeSorting{
+  display: flex;
+  flex-direction: column;
+}
+.HomeSorting__Elements{
+  display: flex;
+  flex-direction: row;
+}
+.HomeSorting__Element{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  margin-top: 5px;
+  font-size: 20px;
+}
+.HomeSorting__Label{
+  color: #005582;
+  font-size: 25px;
+  font-weight: 800;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}

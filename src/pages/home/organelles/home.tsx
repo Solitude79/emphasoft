@@ -1,15 +1,19 @@
-import { useDispatch, useSelector } from "react-redux";
-import { userLogout } from "../../../functions/axios-instance";
+import { addUsers, clearUsersState } from "../../../stores/users/actions";
 import { getUsersApi } from "../../../stores/acync-actions/get-users-api";
-import { RootState } from "../../../stores/store";
-import { useEffect } from "react";
-import { getUsers } from "../../../stores/users/actions";
-import { IUser } from "../../../stores/users/interfaces";
-import { applyFilterAndSort } from "../../../stores/actions/apply-filter-and-sort ";
 import { HomeFiltering } from "../molecules/home-filtering";
 import { HomeSorting } from "../molecules/home-sorting";
+import { HomeUsersList } from "../molecules/home-user-list";
+import { IUser } from "../../../stores/users/interfaces";
+import { ModalEditUser } from "../../../modules/modal-edit-user/organelles/modal-edit-user";
+import { ModalNewUser } from "../../../modules/modal-new-user/organelles/modal-new-user";
+import { RootState } from "../../../stores/store";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import "../styles/home.css";
 
 export const Home = () => {
+  const [modalNewActive, setModalNewActive] = useState(false);
+  const [editUser, setEditUser] = useState<IUser | null>(null);
   const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.usersState.users);
   const sort = useSelector((state: RootState) => state.usersState.sort);
@@ -18,7 +22,7 @@ export const Home = () => {
   const fetchGetUsersApi = async () => {
     try {
       const result = await getUsersApi();
-      if (result) dispatch(getUsers(result));
+      if (result) dispatch(addUsers(result));
     } catch (error) {
       console.log("Ошибка вызова списка пользователей: ", error);
     }
@@ -26,30 +30,33 @@ export const Home = () => {
 
   useEffect(() => {
     fetchGetUsersApi();
+    return () => {
+      dispatch(clearUsersState());
+    };
   }, []);
   return (
-    <div>
-      Привет
-      <div style={{ cursor: "pointer" }} onClick={userLogout}>
-        Выйти
+    <div className="Home">
+      <div className="Home__FilterandSorting">
+        <div className="Home__FilterandSorting__Sorting">
+          <HomeSorting />
+        </div>
+        <div className="Home__FilterandSorting__Filtering">
+          <HomeFiltering />
+        </div>
       </div>
-      <HomeFiltering />
-      <HomeSorting />
-      <div>
-        {users ? (
-          <div>
-            {applyFilterAndSort(users, filter, sort).map(
-              (user: IUser, id: number) => (
-                <div key={id}>{user.username}</div>
-              )
-            )}
-          </div>
-        ) : (
-          <div>Нет пользователей</div>
-        )}
-      </div>
-      <div style={{ cursor: "pointer" }}>Добавить пользователя</div>
-      <div style={{ cursor: "pointer" }}>Удалить пользователя</div>
+      <HomeUsersList
+        users={users}
+        filter={filter}
+        sort={sort}
+        setModalNewActive={setModalNewActive}
+        setEditUser={setEditUser}
+      />
+      {modalNewActive && (
+        <ModalNewUser active={modalNewActive} setActive={setModalNewActive} />
+      )}
+      {editUser && (
+        <ModalEditUser setEditUser={setEditUser} editUser={editUser} />
+      )}
     </div>
   );
 };

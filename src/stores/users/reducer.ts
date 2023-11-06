@@ -17,6 +17,9 @@ const initialState: IUsersState = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const usersReducer = (state = initialState, action: any): IUsersState => {
   switch (action.type) {
+    case types.CLEAR_USERS_STATE: {
+      return initialState;
+    }
     case types.ADD_USERS: {
       // Извлекаем уникальные usernames из новых пользователей
       const newUniqueUsernames: string[] = Array.from(
@@ -129,12 +132,24 @@ const usersReducer = (state = initialState, action: any): IUsersState => {
         },
       };
     }
-    case types.PATCH_USER: {
+    case types.UPDATE_USER: {
+      const updatedUser = action.payload; // Обновленный пользователь
+      const updatedUsers = state.users.map((user) =>
+        user.id === updatedUser.id ? updatedUser : user
+      );
+      const newUniqueUsernames: string[] = Array.from(
+        new Set(updatedUsers.map((user: IUser) => user.username))
+      );
       return {
         ...state,
-        users: state.users.map((user) =>
-          user.id === action.payload.id ? action.payload : user
-        ),
+        users: [...updatedUsers],
+        filter: {
+          ...state.filter,
+          usernames: {
+            ...state.filter.usernames,
+            variables: newUniqueUsernames,
+          },
+        },
       };
     }
     default:

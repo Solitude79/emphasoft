@@ -1,0 +1,22 @@
+.HomeButtonAdd {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #005582;
+  box-shadow: 0px 4.15001px 4.15001px rgba(0, 0, 0, 0.15),
+    inset 0px -1.44768px 2.89536px rgba(0, 0, 0, 0.25);
+  width: 200px;
+  height: 2rem;
+  border-radius: 10px;
+  font-size: 20px;
+  border: 1px solid black;
+  color: bisque;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  margin-left: 30%;
+  margin-top: 2rem;
+}
+.HomeButtonAdd:hover {
+  background-color: rgb(218, 218, 7);
+  color: black;
+}

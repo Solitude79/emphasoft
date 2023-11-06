@@ -1,13 +1,13 @@
 export interface IUser {
-  id: number;
   username: string;
   first_name: string;
   last_name: string;
   is_active: boolean;
-  last_login: string | null;
-  is_superuser: boolean;
+  password: string;
+  last_login?: string | null;
+  is_superuser?: boolean;
+  id?: number;
 }
-
 export const UserSortIDList = {
   down: { color: "#1AD698" },
   up: { color: "#4339F2" },

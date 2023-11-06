@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../stores/store";
 import { setFilterUsernames } from "../../../stores/users/actions";
+import "../styles/home-filtering.css";
 
 export const HomeFiltering = () => {
   const dispatch = useDispatch();
@@ -35,23 +36,26 @@ export const HomeFiltering = () => {
   };
   return (
     <div className="HomeFiltering">
+      <div className="HomeFiltering__Label">Filtering</div>
       {variables &&
         variables.map((variable) => (
-          <label key={variable}>
-            <input
-              type="checkbox"
-              name={variable}
-              checked={
-                checked
-                  ? checked.find((element: string) => element == variable)
-                    ? true
+          <div key={variable} className="HomeFiltering__Element">
+            <label>
+              <input
+                type="checkbox"
+                name={variable}
+                checked={
+                  checked
+                    ? checked.find((element: string) => element == variable)
+                      ? true
+                      : false
                     : false
-                  : false
-              }
-              onChange={handleCheckboxChange}
-            />
-            {variable}
-          </label>
+                }
+                onChange={handleCheckboxChange}
+              />
+              {variable}
+            </label>
+          </div>
         ))}
     </div>
   );

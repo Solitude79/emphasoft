@@ -1,6 +1,9 @@
 import "../styles/login.css";
 import { useEffect, useState } from "react";
-import { ILoginUser, postLoginUser } from "../logics/post-login-user";
+import {
+  ILoginUser,
+  postUserLogin,
+} from "../../../stores/acync-actions/post-user-login";
 import { changeAccessTokenToLocalStorage } from "../../../functions/local-storage";
 import { DEFAULT_IS_TOKEN, setDataToken } from "../../../functions/is-token";
 
@@ -12,7 +15,7 @@ export const Login = () => {
   const [loginValue, setLoginValue] = useState<ILoginUser>(DEFAUL_LOGIN_VALUE);
   const handleClick = async () => {
     try {
-      const result = await postLoginUser(loginValue);
+      const result = await postUserLogin(loginValue);
       if (result) {
         changeAccessTokenToLocalStorage(result);
         setDataToken(result);
@@ -35,11 +38,13 @@ export const Login = () => {
         }}
         className="Login__Form"
       >
+        <div className="Login__Form__Label">Log in</div>
         <input
           type="text"
           className="Login__Form__Input"
           required
           value={loginValue.username}
+          placeholder="Username"
           onChange={(event) => {
             setLoginValue({ ...loginValue, username: event.target.value });
           }}
@@ -50,11 +55,12 @@ export const Login = () => {
           required
           minLength={8}
           value={loginValue.password}
+          placeholder="Password"
           onChange={(event) => {
             setLoginValue({ ...loginValue, password: event.target.value });
           }}
         />
-        <input type="submit" className="Login__Form__Submit" />
+        <input type="submit" className="Login__Form__Submit" value="Let's go" />
       </form>
     </div>
   );
