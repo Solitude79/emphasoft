@@ -12,9 +12,9 @@ export const AppGeneralHeader = () => {
                 Emphasoft
             </div>
             {dataToken? ( 
-            <div className="AppGeneralHeader__LogoutButton" style={{ cursor: "pointer" }} onClick={userLogout}>
-                Выйти
-            </div>):(<div></div>)}
+            <div className="AppGeneralHeader__LogoutButton" onClick={userLogout}>
+                Log out
+            </div>):(null)}
         </div>    
     );
 };

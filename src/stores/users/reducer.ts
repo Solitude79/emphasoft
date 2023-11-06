@@ -21,12 +21,10 @@ const usersReducer = (state = initialState, action: any): IUsersState => {
       return initialState;
     }
     case types.ADD_USERS: {
-      // Извлекаем уникальные usernames из новых пользователей
       const newUniqueUsernames: string[] = Array.from(
         new Set(action.payload.map((user: IUser) => user.username))
       );
 
-      // Обновляем состояние с учетом новых пользователей и usernames
       return {
         ...state,
         users: [...state.users, ...action.payload],
@@ -40,16 +38,13 @@ const usersReducer = (state = initialState, action: any): IUsersState => {
       };
     }
     case types.ADD_USER: {
-      // Извлекаем username нового пользователя
       const newUsername = action.payload.username;
 
-      // Проверяем, что новый username уникален в массиве usernames, иначе добавляем его
       if (!state.filter.usernames.variables?.includes(newUsername)) {
         const uniqueUsernames = state.filter.usernames.variables
           ? [...state.filter.usernames.variables, newUsername]
           : [newUsername];
 
-        // Обновляем состояние с учетом нового пользователя и уникальных usernames
         return {
           ...state,
           users: [...state.users, action.payload],
@@ -63,25 +58,20 @@ const usersReducer = (state = initialState, action: any): IUsersState => {
         };
       }
 
-      // Если username уже существует в usernames, добавляем пользователя в users без изменения usernames
       return { ...state, users: [...state.users, action.payload] };
     }
     case types.DELETE_USER: {
-      // Извлекаем id пользователя, которого нужно удалить
       const userIdToDelete = action.payload;
 
-      // Находим пользователя по id
       const userToDelete = state.users.find(
         (user) => user.id === userIdToDelete
       );
 
       if (userToDelete) {
-        // Проверяем, сколько раз `username` встречается в массиве `users`
         const usernameCount = state.users.filter(
           (user) => user.username === userToDelete.username
         ).length;
 
-        // Если `username` существует и встречается только один раз, удаляем его из `usernames`
         if (usernameCount === 1) {
           const updatedUsernames = state.filter.usernames.variables
             ? state.filter.usernames.variables.filter(
@@ -89,7 +79,6 @@ const usersReducer = (state = initialState, action: any): IUsersState => {
               )
             : [];
 
-          // Обновляем состояние без учета удаленного пользователя и обновленных usernames
           return {
             ...state,
             users: state.users.filter((user) => user.id !== userIdToDelete),
@@ -103,7 +92,6 @@ const usersReducer = (state = initialState, action: any): IUsersState => {
           };
         }
 
-        // В противном случае просто удаляем пользователя из массива `users`
         return {
           ...state,
           users: state.users.filter((user) => user.id !== userIdToDelete),
@@ -133,7 +121,7 @@ const usersReducer = (state = initialState, action: any): IUsersState => {
       };
     }
     case types.UPDATE_USER: {
-      const updatedUser = action.payload; // Обновленный пользователь
+      const updatedUser = action.payload;
       const updatedUsers = state.users.map((user) =>
         user.id === updatedUser.id ? updatedUser : user
       );

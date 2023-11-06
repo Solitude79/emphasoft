@@ -28,6 +28,7 @@
   border-radius: 10px;
   font-size: 20px;
   border: 1px solid black;
+  cursor: pointer;
 
 }
 .AppGeneralHeader__LogoutButton:hover{

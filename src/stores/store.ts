@@ -6,12 +6,10 @@ import { createLogger } from 'redux-logger';
 const loggerMiddleware = createLogger();
 
 export interface RootState {
-  //Инициализация интерфейса рут стэйта
   usersState: IUsersState;
 }
 
 const rootReducer = combineReducers({
-  //Инициализация редьюсера рут стэйта
   usersState: usersReducer,
 });
 

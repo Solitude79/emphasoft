@@ -7,7 +7,6 @@ export const applyFilterAndSort = (
 ) => {
   let filteredAndSortedData = [...data];
 
-  // Применяем фильтрацию по usernames, если задан фильтр
   if (filter.usernames.checked !== null) {
     filteredAndSortedData = filteredAndSortedData.filter(
       (user) =>
@@ -16,7 +15,6 @@ export const applyFilterAndSort = (
     );
   }
 
-  // Применяем сортировку по id, если задан параметр сортировки
   if (sort.id === "up") {
     filteredAndSortedData.sort((a, b) => a.id - b.id);
   } else if (sort.id === "down") {
